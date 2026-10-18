@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#b31968">
+  <title>Inscription aux Masters — FSAC</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand-row">
+    <a class="main-brand" href="index.html" aria-label="FSAC — Accueil"><img src="assets/img/fsac.webp" alt="Logo FSAC"><span><strong>FSAC</strong><small>Faculté des Sciences Aïn Chock</small></span></a>
+    <a class="button button-outline admin-link" href="admin.html">Espace administration <span aria-hidden="true">↗</span></a>
+  </div>
+  <nav class="partner-logos" aria-label="Établissements partenaires">
+    <a href="#registration-panel" aria-label="ICOA"><img src="assets/img/icoa.webp" alt="Logo ICOA"></a>
+    <a href="https://masterssb3rd.github.io/" target="_blank" rel="noopener" aria-label="Master SSB"><img src="assets/img/ssb.webp" alt="Logo SSB"></a>
+    <a href="#registration-panel" aria-label="FSAC"><img src="assets/img/fsac.webp" alt="Logo FSAC"></a>
+    <a href="#registration-panel" aria-label="SBQ"><img src="assets/img/sbq.webp" alt="Logo SBQ"></a>
+    <a href="#registration-panel" aria-label="EMGBR"><img src="assets/img/emgbr.webp" alt="Logo EMGBR"></a>
+  </nav>
+</header>
+<main class="shell public-shell">
+  <section class="hero">
+    <p class="eyebrow">FACULTÉ DES SCIENCES AÏN CHOCK · CASABLANCA</p>
+    <h1>Inscription aux <span>Masters</span></h1>
+    <p>Choisissez votre formation et complétez le formulaire pour soumettre votre candidature.</p>
+    <div class="test-note">Version de test indépendante — ne modifie pas le site de production.</div>
+  </section>
+  <section class="panel registration-panel" id="registration-panel">
+    <div class="section-heading"><div><p class="eyebrow">FORMULAIRE EN LIGNE</p><h2>Votre inscription</h2><p>Les champs marqués d’un * sont obligatoires.</p></div><span class="step">INSCRIPTION</span></div>
+    <form id="registration-form" class="form-grid">
+      <label class="span-2">Master / conférence *<select id="conference_id" name="conference_id" required><option value="">Chargement des formations…</option></select></label>
+      <label>Nom *<input name="last_name" required maxlength="100" autocomplete="family-name"></label>
+      <label>Prénom *<input name="first_name" required maxlength="100" autocomplete="given-name"></label>
+      <label>Email *<input name="email" type="email" required maxlength="254" autocomplete="email"></label>
+      <label>Téléphone *<input name="phone" required maxlength="30" autocomplete="tel"></label>
+      <label>CNE / Code étudiant<input name="student_code" maxlength="80"></label>
+      <label>Établissement<input name="institution" maxlength="200"></label>
+      <label class="span-2">Remarque<textarea name="notes" rows="3" maxlength="1000"></textarea></label>
+      <div class="span-2 form-footer"><p class="muted">Vos informations sont utilisées pour gérer votre inscription à la formation sélectionnée.</p><button class="button button-primary" type="submit">Envoyer l’inscription <span aria-hidden="true">→</span></button></div>
+    </form>
+    <div id="registration-message" class="message" role="status" aria-live="polite"></div>
+  </section>
+  <section class="public-help"><span class="help-icon">i</span><p>Besoin d’aide ? Vérifiez l’adresse e-mail et le numéro de téléphone avant d’envoyer le formulaire.</p></section>
+</main>
+<footer><span>FSAC · Inscription aux Masters</span><span>Prototype indépendant · Supabase</span></footer>
+<script src="config.js"></script><script src="register.js"></script>
+</body></html>
