@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#c21878">
+  <meta name="description" content="Inscription aux conférences des quatre Masters de la Faculté des Sciences Aïn Chock.">
+  <title>Inscription aux conférences — FSAC</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="reference-public-page">
+<header class="site-header reference-header">
+  <nav class="partner-logos reference-logos" aria-label="Établissements partenaires">
+    <a href="#registration-panel" aria-label="ICOA"><img src="assets/img/icoa.webp" alt="Logo ICOA"></a>
+    <a href="https://masterssb3rd.github.io/" target="_blank" rel="noopener" aria-label="Master SSB"><img src="assets/img/ssb.webp" alt="Logo Master SSB"></a>
+    <a href="#registration-panel" aria-label="FSAC"><img src="assets/img/fsac.webp" alt="Logo FSAC"></a>
+    <a href="#registration-panel" aria-label="SBQ"><img src="assets/img/sbq.webp" alt="Logo Master SBQ"></a>
+    <a href="#registration-panel" aria-label="EMGBR"><img src="assets/img/emgbr.webp" alt="Logo Master EMGBR"></a>
+  </nav>
+  <div class="reference-header-actions"><a class="language-pill" href="admin.html" aria-label="Espace administrateur">Espace administrateur <span aria-hidden="true">↗</span></a></div>
+</header>
+<section class="hero-banner">
+  <div class="hero-banner-inner">
+    <p class="banner-eyebrow">UNIVERSITÉ HASSAN II DE CASABLANCA · FSAC</p>
+    <h1>Inscription aux conférences</h1>
+    <p>Un espace commun pour les quatre Masters de la Faculté des Sciences Aïn Chock</p>
+  </div>
+</section>
+<main class="shell public-shell reference-public-shell">
+  <section class="welcome-card">
+    <div class="welcome-icon" aria-hidden="true">✦</div>
+    <div><h2>Bienvenue</h2><p>Sélectionnez la conférence à laquelle vous souhaitez participer. Les inscriptions sont disponibles uniquement pour les conférences ouvertes.</p></div>
+  </section>
+  <section class="panel registration-panel reference-form-panel" id="registration-panel">
+    <div class="section-heading"><div><p class="eyebrow">INSCRIPTION</p><h2>Formulaire d'inscription</h2><p>Les champs marqués d’un astérisque sont obligatoires.</p></div></div>
+    <form id="registration-form" class="form-grid">
+      <label class="span-2 conference-field">Conférence *<select id="conference_id" name="conference_id" required><option value="">Chargement des formations…</option></select></label>
+      <label>Prénom *<input name="first_name" required maxlength="100" autocomplete="given-name"></label>
+      <label>Nom *<input name="last_name" required maxlength="100" autocomplete="family-name"></label>
+      <label>Adresse e-mail *<input name="email" type="email" required maxlength="254" autocomplete="email"></label>
+      <label>Téléphone *<input name="phone" required maxlength="30" autocomplete="tel"></label>
+      <label>CNE / Code étudiant<input name="student_code" maxlength="80"></label>
+      <label>Filière / Formation<input name="institution" maxlength="200"></label>
+      <label class="span-2">Remarque (facultatif)<textarea name="notes" rows="3" maxlength="1000"></textarea></label>
+      <div class="span-2 form-footer reference-form-footer"><button class="button button-primary reference-submit" type="submit">Envoyer l'inscription <span aria-hidden="true">⟶</span></button><p class="muted">Vos informations seront transmises à l'équipe organisatrice pour gérer votre inscription.</p></div>
+    </form>
+    <div id="registration-message" class="message" role="status" aria-live="polite"></div>
+  </section>
+  <p class="coordinator-line"><span aria-hidden="true">✦</span> Coordonné par <strong>Pr. JAZOULLI Mohammed</strong> · <a href="mailto:mohammed.jazouli@univh2c.ma">mohammed.jazouli@univh2c.ma</a></p>
+</main>
+<footer class="reference-footer"><span>FSAC · Université Hassan II de Casablanca</span><span>Contact administrateurs : <a href="mailto:ssb3rd@gmail.com">ssb3rd@gmail.com</a></span><a href="admin.html">Espace administrateur</a></footer>
+<script src="config.js"></script><script src="register.js"></script>
+</body></html>

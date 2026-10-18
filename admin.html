@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#b31968">
+  <title>Administration — FSAC Masters</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-page">
+<header class="site-header reference-header admin-reference-header">
+  <nav class="partner-logos reference-logos" aria-label="Établissements partenaires">
+    <a href="index.html" aria-label="ICOA"><img src="assets/img/icoa.webp" alt="Logo ICOA"></a>
+    <a href="https://masterssb3rd.github.io/" target="_blank" rel="noopener" aria-label="Master SSB"><img src="assets/img/ssb.webp" alt="Logo Master SSB"></a>
+    <a href="index.html" aria-label="FSAC"><img src="assets/img/fsac.webp" alt="Logo FSAC"></a>
+    <a href="index.html" aria-label="SBQ"><img src="assets/img/sbq.webp" alt="Logo Master SBQ"></a>
+    <a href="index.html" aria-label="EMGBR"><img src="assets/img/emgbr.webp" alt="Logo Master EMGBR"></a>
+  </nav>
+  <div class="reference-header-actions"><a class="language-pill" href="index.html">← Page d'inscription</a><button id="sign-out" class="button button-outline hidden">Déconnexion</button></div>
+</header>
+<section class="hero-banner admin-hero-banner"><div class="hero-banner-inner"><p class="banner-eyebrow">UNIVERSITÉ HASSAN II DE CASABLANCA · FSAC</p><h1>Tableau de bord</h1><p>Gestion des inscriptions, des participants et des formations</p></div></section>
+<main class="shell admin-shell">
+  
+  <form id="login-form" class="panel login-card"><h2>Connexion administrateur</h2><p class="muted">Connectez-vous avec un compte Supabase autorisé dans la table <code>admin_users</code>.</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Mot de passe<input id="login-password" type="password" required autocomplete="current-password"></label><button class="button button-primary" type="submit">Se connecter <span aria-hidden="true">→</span></button><div id="login-message" class="message" role="status" aria-live="polite"></div></form>
+  <div id="admin-app" class="hidden">
+    <div class="stats-grid"><article class="stat"><span>Participants</span><strong id="stat-total">0</strong></article><article class="stat"><span>Présents</span><strong id="stat-present">0</strong></article><article class="stat"><span>Formations ouvertes</span><strong id="stat-open">0</strong></article></div>
+    <section class="panel"><div class="section-heading"><div><p class="eyebrow">BASE DE DONNÉES</p><h2>Participants</h2><p>Recherchez, modifiez, ajoutez ou supprimez des participants.</p></div><div class="heading-actions"><button id="add-participant-open" class="button button-primary">＋ Ajouter un participant</button><button id="export-csv" class="button button-outline">Exporter CSV</button></div></div>
+      <div class="toolbar"><input id="search" type="search" placeholder="Rechercher nom, email, téléphone…"><select id="filter-conference"><option value="">Toutes les formations</option></select><select id="filter-presence"><option value="">Présence : toutes</option><option value="true">Présents</option><option value="false">Absents / non marqués</option></select></div>
+      <div class="bulkbar"><label class="check-label"><input id="select-all" type="checkbox"> Tout sélectionner (page)</label><div class="bulk-actions"><button id="bulk-present" class="button button-small">Marquer présents</button><button id="bulk-absent" class="button button-small">Marquer absents</button><button id="bulk-delete" class="button button-small button-danger">Supprimer sélection</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th></th><th>Participant</th><th>Formation</th><th>Email / téléphone</th><th>Présence</th><th>Actions</th></tr></thead><tbody id="participants-body"><tr><td colspan="6" class="empty">Connectez-vous pour charger les participants.</td></tr></tbody></table></div>
+      <div class="pagination"><span id="page-label">Page 1</span><div><button id="prev-page" class="button button-small button-outline">Précédent</button><button id="next-page" class="button button-small button-outline">Suivant</button></div></div>
+    </section>
+    <section class="panel"><div class="section-heading"><div><p class="eyebrow">CONFIGURATION</p><h2>Gestion des formations</h2><p>Modifier le nom, les détails et l’ouverture des inscriptions.</p></div></div>
+      <form id="conference-form" class="conference-form"><input id="conf-name" placeholder="Nom de la formation" required maxlength="200"><input id="conf-description" placeholder="Description (facultatif)" maxlength="1000"><label class="check-label"><input id="conf-open" type="checkbox" checked> Inscriptions ouvertes</label><button class="button button-primary" type="submit">Ajouter une formation</button></form>
+      <div id="conference-list" class="conference-list"></div>
+    </section>
+  </div>
+</main>
+<div id="edit-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="edit-title"><div class="modal-card"><div class="section-heading"><h2 id="edit-title">Modifier le participant</h2><button id="close-modal" class="icon-button" aria-label="Fermer">×</button></div><form id="edit-form" class="form-grid"><input type="hidden" name="id"><label>Nom *<input name="last_name" required maxlength="100"></label><label>Prénom *<input name="first_name" required maxlength="100"></label><label>Email *<input name="email" type="email" required maxlength="254"></label><label>Téléphone<input name="phone" maxlength="30"></label><label>Code étudiant<input name="student_code" maxlength="80"></label><label>Établissement<input name="institution" maxlength="200"></label><label>Formation<select name="conference_id" id="edit-conference" required></select></label><label class="check-label"><input type="checkbox" name="present"> Présent</label><label class="span-2">Remarque<textarea name="notes" rows="3" maxlength="1000"></textarea></label><div class="span-2 form-footer"><button type="button" id="cancel-edit" class="button button-outline">Annuler</button><button class="button button-primary" type="submit">Enregistrer</button></div></form><div id="edit-message" class="message"></div></div></div>
+<div id="add-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="add-title"><div class="modal-card"><div class="section-heading"><div><p class="eyebrow">AJOUT MANUEL</p><h2 id="add-title">Ajouter un participant</h2><p>Ajoutez une personne directement à la liste des inscriptions.</p></div><button id="close-add-modal" class="icon-button" aria-label="Fermer">×</button></div><form id="add-form" class="form-grid"><label>Nom *<input name="last_name" required maxlength="100"></label><label>Prénom *<input name="first_name" required maxlength="100"></label><label>Email *<input name="email" type="email" required maxlength="254"></label><label>Téléphone<input name="phone" maxlength="30"></label><label>Code étudiant<input name="student_code" maxlength="80"></label><label>Établissement<input name="institution" maxlength="200"></label><label class="span-2">Formation *<select name="conference_id" id="add-conference" required></select></label><label class="span-2">Remarque<textarea name="notes" rows="3" maxlength="1000"></textarea></label><label class="check-label span-2"><input type="checkbox" name="present"> Marquer comme présent</label><div class="span-2 form-footer"><button type="button" id="cancel-add" class="button button-outline">Annuler</button><button class="button button-primary" type="submit">Enregistrer le participant</button></div></form><div id="add-message" class="message" role="status" aria-live="polite"></div></div></div>
+<footer><span>FSAC · Administration des inscriptions</span><span>Prototype indépendant · GitHub Pages + Supabase</span></footer>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
